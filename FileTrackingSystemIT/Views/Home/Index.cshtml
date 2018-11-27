@@ -1,0 +1,12 @@
+@model IEnumerable<FileTrackingSystemIT.Models.File_Record>
+@{
+    ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+@using (Html.BeginForm())
+{
+    @Html.Partial("_FTSPartial", Model)
+}
+

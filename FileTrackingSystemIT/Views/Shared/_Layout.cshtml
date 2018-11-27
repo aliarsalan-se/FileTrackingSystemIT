@@ -1,0 +1,1041 @@
+﻿@using DevExpress.Web;
+@using DevExpress.Web.Mvc;
+@using DevExpress.Web.Mvc.UI;
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>File Transfering System</title>
+    <script src="~/js/jquery-1.11.3.js"></script>
+    @*<script src="/js/jquery.js"></script>*@
+
+    @Html.DevExpress().GetStyleSheets(
+        new StyleSheet { ExtensionSuite = ExtensionSuite.NavigationAndLayout },
+        //new StyleSheet { ExtensionSuite = ExtensionSuite.CardView },
+        //new StyleSheet { ExtensionSuite = ExtensionSuite.PivotGrid },
+        //new StyleSheet { ExtensionSuite = ExtensionSuite.SpellChecker },
+        new StyleSheet { ExtensionSuite = ExtensionSuite.HtmlEditor, Theme = "Moderno" },
+        new StyleSheet { ExtensionSuite = ExtensionSuite.RichEdit, Theme = "Moderno" },
+        new StyleSheet { ExtensionSuite = ExtensionSuite.Editors, Theme = "Moderno" },
+        //new StyleSheet { ExtensionSuite = ExtensionSuite.VerticalGrid },
+        //new StyleSheet { ExtensionSuite = ExtensionSuite.Spreadsheet },
+        //new StyleSheet { ExtensionSuite = ExtensionSuite.Scheduler },
+        //new StyleSheet { ExtensionSuite = ExtensionSuite.Chart },
+        //new StyleSheet { ExtensionSuite = ExtensionSuite.Report },
+        new StyleSheet { ExtensionSuite = ExtensionSuite.GridView, Theme = "Moderno" },
+        new StyleSheet { ExtensionSuite = ExtensionSuite.TreeList, Theme = "Moderno" }
+        //new StyleSheet { ExtensionSuite = ExtensionSuite.Dashboard },
+        //new StyleSheet { ExtensionSuite = ExtensionSuite.DashboardViewer }
+    )
+
+    @Html.DevExpress().GetScripts(
+        new Script { ExtensionSuite = ExtensionSuite.NavigationAndLayout },
+        //new Script { ExtensionSuite = ExtensionSuite.CardView },
+        //new Script { ExtensionSuite = ExtensionSuite.PivotGrid },
+        //new Script { ExtensionSuite = ExtensionSuite.SpellChecker },
+        new Script { ExtensionSuite = ExtensionSuite.HtmlEditor },
+        new Script { ExtensionSuite = ExtensionSuite.RichEdit },
+        new Script { ExtensionSuite = ExtensionSuite.Editors },
+        //new Script { ExtensionSuite = ExtensionSuite.VerticalGrid },
+        //new Script { ExtensionSuite = ExtensionSuite.Spreadsheet },
+        //new Script { ExtensionSuite = ExtensionSuite.Scheduler },
+        //new Script { ExtensionSuite = ExtensionSuite.Chart },
+        //new Script { ExtensionSuite = ExtensionSuite.Report },
+        new Script { ExtensionSuite = ExtensionSuite.GridView },
+        new Script { ExtensionSuite = ExtensionSuite.TreeList }
+        //new Script { ExtensionSuite = ExtensionSuite.Dashboard },
+        //new Script { ExtensionSuite = ExtensionSuite.DashboardViewer }
+    )
+
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap/bootstrap.min.css" />
+
+    <script src="/js/demo-rtl.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="/css/libs/font-awesome.css" />
+    <link rel="stylesheet" type="text/css" href="/css/libs/nanoscroller.css" />
+
+    <link rel="stylesheet" type="text/css" href="/angularjs/css/angular.css" />
+    <link rel="stylesheet" type="text/css" href="/angularjs/css/loading-bar.css" />
+
+    <link rel="stylesheet" type="text/css" href="/css/compiled/theme_styles.css" />
+
+    <link rel="stylesheet" type="text/css" href="/css/libs/select2.css" />
+
+    <link rel="stylesheet" type="text/css" href="/css/libs/bootstrap-editable.css" />
+
+    <link rel="stylesheet" type="text/css" href="/css/libs/magnific-popup.css" />
+
+    <link rel="stylesheet" type="text/css" href="/css/libs/datepicker.css" />
+
+    <link rel="stylesheet" href="/css/libs/daterangepicker.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="/css/libs/bootstrap-timepicker.css" />
+
+    <link rel="stylesheet" type="text/css" href="/css/libs/jquery.nouislider.css" />
+
+    <link rel="stylesheet" type="text/css" href="/css/libs/fullcalendar.css" />
+    <link rel="stylesheet" type="text/css" href="/css/libs/fullcalendar.print.css" media="print" />
+    <link rel="stylesheet" type="text/css" href="/css/compiled/calendar.css" media="screen" />
+
+    <link rel="stylesheet" type="text/css" href="/css/libs/morris.css" />
+
+    <link rel="stylesheet" href="/css/libs/jquery-jvectormap-1.2.2.css" type="text/css" />
+    <link rel="stylesheet" href="/css/libs/weather-icons.css" type="text/css" />
+
+
+    <link rel="stylesheet" type="text/css" href="/css/libs/timeline.css" />
+
+    <link rel="stylesheet" type="text/css" href="/css/libs/dataTables.fixedHeader.css" />
+    <link rel="stylesheet" type="text/css" href="/css/libs/dataTables.tableTools.css" />
+
+    <link rel="stylesheet" type="text/css" href="/css/libs/footable.core.css" />
+
+    <link rel="stylesheet" type="text/css" href="/css/libs/ns-default.css" />
+    <link rel="stylesheet" type="text/css" href="/css/libs/ns-style-growl.css" />
+    <link rel="stylesheet" type="text/css" href="/css/libs/ns-style-bar.css" />
+    <link rel="stylesheet" type="text/css" href="/css/libs/ns-style-attached.css" />
+    <link rel="stylesheet" type="text/css" href="/css/libs/ns-style-other.css" />
+    <link rel="stylesheet" type="text/css" href="/css/libs/ns-style-theme.css" />
+
+    <link rel="stylesheet" type="text/css" href="/css/libs/nifty-component.css" />
+
+    <link rel="stylesheet" type="text/css" href="/css/libs/hopscotch.css" />
+
+    <link rel="stylesheet" type="text/css" href="/css/libs/xcharts.css" />
+
+    <link rel="stylesheet" type="text/css" href="/css/libs/dropzone.css" />
+
+    <link rel="stylesheet" type="text/css" href="/css/libs/gallery-component.css" />
+
+    <link rel="stylesheet" type="text/css" href="/css/compiled/wizard.css" />
+    <link rel="stylesheet" type="text/css" href="/css/libs/bootstrap-wizard.css" />
+
+    <link rel="stylesheet" type="text/css" href="/css/libs/summernote.min.css" />
+
+    <link rel="icon" href="/img/logo.jpg" />
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600,700,300' rel='stylesheet' type='text/css'>
+</head>
+<body>
+    <div id="theme-wrapper">
+        <header class="navbar" id="header-navbar">
+            <div class="container">
+                <a href="/Home/Index" id="logo" class="navbar-brand">
+                    File Transfer System
+                    @*<img src="/img/logo.png" alt="" class="normal-logo logo-white" />*@
+                    <img src="/img/logo-black.png" alt="" class="normal-logo logo-black" />
+                    <img src="/img/logo-small.png" alt="" class="small-logo hidden-xs hidden-sm hidden" />
+                </a>
+                <div class="clearfix">
+                    <button class="navbar-toggle" data-target=".navbar-ex1-collapse" data-toggle="collapse" type="button">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="fa fa-bars"></span>
+                    </button>
+                    <div class="nav-no-collapse navbar-left pull-left hidden-sm hidden-xs">
+                        <ul class="nav navbar-nav pull-left">
+                            <li>
+                                <a class="btn" id="make-small-nav">
+                                    <i class="fa fa-bars"></i>
+                                </a>
+                            </li>
+                            <li class="dropdown hidden-xs">
+                                <a href="http://erp/dha" target="_blank" class="btn">
+                                    <img src="/img/Attandance.png" style="width: 35px;margin-top: -7px;" />
+                                </a>
+                            </li>
+                            <li class="dropdown hidden-xs">
+                                <a class="btn dropdown-toggle" data-toggle="dropdown">
+                                    Users Management
+                                    <i class="fa fa-caret-down"></i>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li class="item">
+                                        <a href="/Membership/UserGroup/Index">
+                                            <i class="fa fa-users"></i>
+                                            User Groups
+                                        </a>
+                                    </li>
+                                    <li class="item">
+                                        <a href="/Membership/Users/Index">
+                                            <i class="fa fa-users"></i>
+                                            Users
+                                        </a>
+                                    </li>
+                                    <li class="item">
+                                        <a href="/AssignRoles/Index">
+                                            <i class="fa fa-users"></i>
+                                            Assign Roles
+                                        </a>
+                                    </li>
+                                    <li class="item">
+                                        <a href="/Membership/Users/LogsActivity">
+                                            <i class="fa fa-users"></i>
+                                            Log Activities
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown hidden-xs">
+                                <a class="btn dropdown-toggle" data-toggle="dropdown">
+                                    Definition
+                                    <i class="fa fa-caret-down"></i>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li class="item">
+                                        <a href="/Definition/Cabinets/Index">
+                                            <i class="fa fa-tint"></i>
+                                            Category
+                                        </a>
+                                    </li>
+                                    <li class="item">
+                                        <a href="/Definition/Departments/Index">
+                                            <i class="fa fa-building-o"></i>
+                                            Departments
+                                        </a>
+                                    </li>
+                                    <li class="item">
+                                        <a href="/Definition/Religions/Index">
+                                            <i class=""><img src="~/img/mosque.png" alt="" style="height: 15px;" /></i>
+                                            Religions
+                                        </a>
+                                    </li>
+                                    <li class="item">
+                                        <a href="/Definition/Sects/Index">
+                                            <i class=""><img src="~/img/mosque.png" alt="" style="height: 15px;" /></i>
+                                            Sects
+                                        </a>
+                                    </li>
+                                    <li class="item">
+                                        <a href="/Definition/Course/Index">
+                                            <i class="fa fa-graduation-cap"></i>
+                                            Courses
+                                        </a>
+                                    </li>
+                                    <li class="item">
+                                        <a href="/Definition/LeaveTypes/Index">
+                                            @*<i class="fa fa-graduation-cap"></i>*@
+                                            <img src="~/img/leave.png" alt="" style="height:12px;margin-left:-20px" />
+                                            Leave Types
+                                        </a>
+                                    </li>
+                                    <li class="item">
+                                        <a href="/Definition/PayScales/Index">
+                                            <i class="fa fa-credit-card"></i>
+                                            Pay Scales
+                                        </a>
+                                    </li>
+                                    <li class="item">
+                                        <a href="/Definition/Ranks/Index">
+                                            <i class="fa fa-star"></i>
+                                            Ranks
+                                        </a>
+                                    </li>
+                                    <li class="item">
+                                        <a href="/Definition/Districts/Index">
+                                            <i class="fa fa-home"></i>
+                                            Districts
+                                        </a>
+                                    </li>
+                                    <li class="item">
+                                        <a href="/Definition/Nationalities/Index">
+                                            <i class="fa fa-flag"></i>
+                                            Nationalities
+                                        </a>
+                                    </li>
+                                    <li class="item">
+                                        <a href="/Definition/MaritalStatus/Index">
+                                            <i class="fa fa-users"></i>
+                                            Marital Status
+                                        </a>
+                                    </li>
+                                    <li class="item">
+                                        <a href="/Definition/EducationQualifications/Index">
+                                            <i class="fa fa-graduation-cap"></i>
+                                            Educational Qualifications
+                                        </a>
+                                    </li>
+                                    <li class="item">
+                                        <a href="/Definition/Years/Index">
+                                            <i class="fa fa-calendar"></i>
+                                            Job Application Years
+                                        </a>
+                                    </li>
+                                    <li class="item">
+                                        <a href="/Definition/Genders/Index">
+                                            <i class="fa fa-female"></i>
+                                            Genders
+                                        </a>
+                                    </li>
+                                    <li class="item">
+                                        <a href="/Definition/Designations/Index">
+                                            <i class="fa fa-user"></i>
+                                            Designations
+                                        </a>
+                                    </li>
+
+                                    <li class="item">
+                                        <a href="/Definition/ContractCategories/Index">
+                                            <i class="fa fa-tags"></i>
+                                            Contract Categories
+                                        </a>
+                                    </li>
+                                    <li class="item">
+                                        <a href="/Definition/EmployeeCategories/Index">
+                                            <i class="fa fa-tags"></i>
+                                            Employee Categories
+                                        </a>
+                                    </li>
+                                    <li class="item">
+                                        <a href="/Definition/JobStatus/Index">
+                                            <i class="fa fa-check"></i>
+                                            Job Status
+                                        </a>
+                                    </li>
+                                    <li class="item">
+                                        <a href="/Definition/BloodGroups/Index">
+                                            <i class="fa fa-tint"></i>
+                                            Blood Groups
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown hidden-xs">
+                                <a class="btn dropdown-toggle" data-toggle="dropdown">
+                                    Recruitment
+                                    <i class="fa fa-caret-down"></i>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li class="item">
+                                        <a href="/Application/Jobs/Index">
+                                            <i class="fa fa-building-o"></i>
+                                            Jobs
+                                        </a>
+                                    </li>
+                                    <li class="item">
+                                        <a href="/Application/Applicants/Index">
+                                            <i class="fa fa-building-o"></i>
+                                            Candidate Applications
+                                        </a>
+                                    </li>
+                                    <li class="item">
+                                        <a href="/Areas/Application/ShortList.aspx">
+                                            <i class="fa fa-building-o"></i>
+                                            Short List Candidates
+                                        </a>
+                                    </li>
+                                    <li class="item">
+                                        <a href="/Areas/Application/SelectCandidate.aspx">
+                                            <i class="fa fa-building-o"></i>
+                                            Selected Candidates
+                                        </a>
+                                    </li>
+                                    <li class="item">
+                                        <a href="/Areas/Application//CandidateList.aspx">
+                                            <i class="fa fa-building-o"></i>
+                                            Candidates List
+                                        </a>
+                                    </li>
+                                    @*<li class="item">
+                                            <a href="/Application/InterviewedCandidates/Index">
+                                                <i class="fa fa-building-o"></i>
+                                                Interviewed Candidates
+                                            </a>
+                                        </li>
+
+                                        <li class="item">
+                                            <a href="/Application/DocumentVerifications/Index">
+                                                <i class="fa fa-building-o"></i>
+                                               Candidate Document Verifications
+                                            </a>
+                                        </li>*@
+
+                                </ul>
+                            </li>
+                            <li class="dropdown hidden-xs">
+                                <a class="btn dropdown-toggle" data-toggle="dropdown">
+                                    Employee
+                                    <i class="fa fa-caret-down"></i>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li class="item">
+                                        <a href="/Employee/Employees/Index">
+                                            <i class="fa fa-building-o"></i>
+                                            Employee Record
+                                        </a>
+                                    </li>
+                                    <li class="item">
+                                        <a href="/Areas/Employee/ChildrenRecord.aspx">
+                                            <i class="fa fa-building-o"></i>
+                                            Children Record
+                                        </a>
+                                    </li>
+                                    <li class="item">
+                                        <a href="/Areas/Employee/EmployeeLeaves.aspx">
+                                            <i class="fa fa-building-o"></i>
+                                            Employee Leaves
+                                        </a>
+                                    </li>
+                                    <li class="item">
+                                        <a href="/Areas/Employee/CalculateTotalLeaves.aspx">
+                                            <i class="fa fa-building-o"></i>
+                                            Leave Calculation
+                                        </a>
+                                    </li>
+                                    <li class="item">
+                                        <a href="/Areas/Employee/EmployeePerformance.aspx">
+                                            <i class="fa fa-building-o"></i>
+                                            Employee Performance
+                                        </a>
+                                    </li>
+                                    <li class="item">
+                                        <a href="/Areas/Employee/EmployeeNewStatus.aspx">
+                                            <i class="fa fa-building-o"></i>
+                                            Employee New Status
+                                        </a>
+                                    </li>
+                                    <li class="item">
+                                        <a href="/Areas/Employee/Training.aspx">
+                                            <i class="fa fa-building-o"></i>
+                                            Training
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown hidden-xs">
+                                <a class="btn dropdown-toggle" data-toggle="dropdown">
+                                    AMS
+                                    <i class="fa fa-caret-down"></i>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li class="item">
+                                        <a href="~/Areas/AMS/Reports/EDandDirReports.aspx">
+                                            <i class="fa fa-users"></i>
+                                            ED & Dir Report
+                                        </a>
+                                    </li>
+                                    <li class="item">
+                                        <a href="~/Areas/AMS/Reports/DirWiseMonthlyReport.aspx">
+                                            <i class="fa fa-users"></i>
+                                            Monthly Report
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown hidden-xs">
+                                <a class="btn dropdown-toggle" data-toggle="dropdown">
+                                    EDMS
+                                    <i class="fa fa-caret-down"></i>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li class="item">
+                                        <a href="/DocumentArchive/Manage/FolderManager">
+                                            <i class="fa fa-file"></i>
+                                            Store Documents
+                                        </a>
+                                    </li>
+                                    <li class="item">
+                                        <a href="/DocumentArchive/Manage/SharedFolderManager">
+                                            <i class="fa fa-file-code-o"></i>
+                                            Share Files
+                                        </a>
+                                    </li>
+                                    <li class="item">
+                                        <a href="/DocumentArchive/Manage/Index">
+                                            <i class="fa fa-file-excel-o"></i>
+                                            Search/View Documents
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li class="dropdown hidden-xs">
+                                <a class="btn dropdown-toggle" data-toggle="dropdown">
+                                    Reports
+                                    <i class="fa fa-caret-down"></i>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li class="item">
+                                        <a href="/Areas/Report/DirectorReports.aspx">
+                                            <i class="fa fa-building-o"></i>
+                                            Director Reports
+                                        </a>
+                                    </li>
+                                    <li class="item">
+                                        <a href="/Areas/Report/ManagerReports.aspx">
+                                            <i class="fa fa-building-o"></i>
+                                            Manager Reports
+                                        </a>
+                                    </li>
+                                    <li class="item">
+                                        <a href="/Areas/Report/ListOfReports.aspx">
+                                            <i class="fa fa-building-o"></i>
+                                            List of  Reports
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="nav-no-collapse pull-right" id="header-nav">
+                        <ul class="nav navbar-nav pull-right">
+                            <li class="dropdown profile-dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+
+                                   
+                                    
+                                    
+                                        <img alt="Image Not Found" src="@HttpContext.Current.Session["Picture"].ToString()" />
+                                    
+                                        <span class="hidden-xs">Welcome @HttpContext.Current.Session["LogedUserFullname"].ToString()</span> <b class="caret"></b>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-right">
+                                    <li>@Html.ActionLink("Profile","Edit")</li>
+                                    <li>@Html.ActionLink("Log out","LogOut" )</li>
+                                    
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <div id="page-wrapper" class="container nav-small">
+            <div class="row">
+                <div id="nav-col">
+                    <section id="col-left" class="col-left-nano">
+                        <div id="col-left-inner" class="col-left-nano-content">
+                            <div id="user-left-box" class="clearfix hidden-sm hidden-xs dropdown profile2-dropdown">
+                                
+                               
+                                    <img alt="Image Not Found" src="@HttpContext.Current.Session["Picture"].ToString()" />
+                                
+                                <div class="user-box">
+                                    <span class="name">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                            Welcome  @HttpContext.Current.Session["LogedUserFullname"].ToString()
+                                            <i class="fa fa-angle-down"></i>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="/Membership/Users/UserProfile/1"><i class="fa fa-user"></i>Profile</a></li>
+                                            <li><a href="/Home/LogOut"><i class="fa fa-power-off"></i>Logout</a></li>
+                                        </ul>
+                                    </span>
+                                    <span class="status">
+                                        <i class="fa fa-circle"></i> Online
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="collapse navbar-collapse navbar-ex1-collapse" id="sidebar-nav">
+                                <ul class="nav nav-pills nav-stacked">
+                                    <li class="nav-header nav-header-first hidden-sm hidden-xs">
+                                        Navigation
+                                    </li>
+                                    <li class="active">
+                                        <a href="/Home/Index">
+                                            <i class="fa fa-dashboard"></i>
+                                            <span>Dashboard</span>
+                                            @*<span class="label label-primary label-circle pull-right">28</span>*@
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="dropdown-toggle">
+                                            <i class="fa fa-table"></i>
+                                            <span>Users Management</span>
+                                            <i class="fa fa-angle-right drop-icon"></i>
+                                        </a>
+                                        <ul class="submenu">
+                                            <li>
+                                                <a href="/Membership/UserGroup/Index">
+                                                    User Groups
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="/Membership/Users/Index">
+                                                    Users
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="/AssignRoles/Index">
+                                                    Assign Roles
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="/Membership/Users/LogsActivity">
+                                                    Log Activities
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+
+                                    <li>
+                                        <a href="#" class="dropdown-toggle">
+                                            <i class="fa fa-table"></i>
+                                            <span>Definition</span>
+                                            <i class="fa fa-angle-right drop-icon"></i>
+                                        </a>
+                                        <ul class="submenu">
+                                            <li>
+                                                <a href="/Definition/Cabinets/Index">
+                                                    Category
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="/Definition/Departments/Index">
+                                                    Departments
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="/Definition/Religions/Index">
+                                                    Religions
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="/Definition/Sects/Index">
+                                                    Sects
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="/Definition/Course/Index">
+                                                    Course
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="/Definition/LeaveTypes/Index">
+                                                    Leave Types
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="/Definition/PayScales/Index">
+                                                    Pay Scales
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="/Definition/Ranks/Index">
+                                                    Ranks
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="/Definition/Districts/Index">
+                                                    Districts
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="/Definition/Nationalities/Index">
+                                                    Nationalities
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="/Definition/MaritalStatus/Index">
+                                                    Marital Status
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="/Definition/EducationQualifications/Index">
+                                                    Educational Qualifications
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="/Definition/Years/Index">
+                                                    Job Application Years
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="/Definition/Genders/Index">
+                                                    Genders
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="/Definition/Designations/Index">
+                                                    Designations
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="/Definition/ContractCategories/Index">
+                                                    Contract Categories
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="/Definition/EmployeeCategories/Index">
+                                                    Employee Categories
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="/Definition/JobStatus/Index">
+                                                    Job Status
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="/Definition/BloodGroups/Index">
+                                                    Blood Groups
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+
+                                    <li>
+                                        <a href="#" class="dropdown-toggle">
+                                            <i class="fa fa-table"></i>
+                                            <span>Recruitment</span>
+                                            <i class="fa fa-angle-right drop-icon"></i>
+                                        </a>
+                                        <ul class="submenu">
+                                            <li>
+                                                <a href="/Application/Jobs/Index">
+                                                    Jobs
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="/Application/Applicants/Index">
+                                                    Candidate Applications
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="/Areas/Application/ShortList.aspx">
+                                                    Shortlist Candidates
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="/Areas/Application/SelectCandidate.aspx">
+                                                    Select Candidates
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="/Areas/Application//CandidateList.aspx">
+                                                    Candidate List
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+
+                                    <li>
+                                        <a href="#" class="dropdown-toggle">
+                                            <i class="fa fa-table"></i>
+                                            <span>Employee</span>
+                                            <i class="fa fa-angle-right drop-icon"></i>
+                                        </a>
+                                        <ul class="submenu">
+                                            <li>
+                                                <a href="/Employee/Employees/Index">
+                                                    Employee Record
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="/Areas/Employee/ChildrenRecord.aspx">
+                                                    Children Record
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="/Areas/Employee/EmployeeLeaves.aspx">
+                                                    Employee Leaves
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="/Areas/Employee/CalculateTotalLeaves.aspx">
+                                                    Leave Calculation
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="/Areas/Employee/EmployeePerformance.aspx">
+                                                    Employee Performance
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="/Areas/Employee/EmployeeNewStatus.aspx">
+                                                    Employee New Status
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="/Areas/Employee/Training.aspx">
+                                                    Training
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+
+                                    <li>
+                                        <a href="#" class="dropdown-toggle">
+                                            <i class="fa fa-table"></i>
+                                            <span>EDMS</span>
+                                            <i class="fa fa-angle-right drop-icon"></i>
+                                        </a>
+                                        <ul class="submenu">
+                                            <li>
+                                                <a href="/DocumentArchive/Manage/FolderManager">
+                                                    Store Documents
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="/DocumentArchive/Manage/SharedFolderManager">
+                                                    Share Files
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="/DocumentArchive/Manage/Index">
+                                                    Search/View Documents
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+
+                                    <li>
+                                        <a href="#" class="dropdown-toggle">
+                                            <i class="fa fa-table"></i>
+                                            <span>Reports</span>
+                                            <i class="fa fa-angle-right drop-icon"></i>
+                                        </a>
+                                        <ul class="submenu">
+                                            <li>
+                                                <a href="/Areas/Report/DirectorReports.aspx">
+                                                    Director Reports
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="/Areas/Report/ManagerReports.aspx">
+                                                    Manager Reports
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="/Areas/Report/ListOfReports.aspx">
+                                                    List of  Reports
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+                    <div id="nav-col-submenu"></div>
+                </div>
+                <div id="content-wrapper">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div id="content-header" class="clearfix">
+                                        @RenderSection("TopSection", required: false)
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                @RenderBody()
+                            </div>
+                        </div>
+                    </div>
+                    <footer id="footer-bar" class="row">
+                        <p id="footer-copyright" class="col-xs-12">
+                            DHA HR Software designed and developed by IT & T .All rights reserved DHA Islamabad-Rawalpindi.
+                        </p>
+                    </footer>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="config-tool" class="closed">
+        <a id="config-tool-cog">
+            <i class="fa fa-cog"></i>
+        </a>
+        <div id="config-tool-options">
+            <h4>Layout Options</h4>
+            <ul>
+                <li>
+                    <div class="checkbox-nice">
+                        <input type="checkbox" id="config-fixed-header" />
+                        <label for="config-fixed-header">
+                            Fixed Header
+                        </label>
+                    </div>
+                </li>
+                <li>
+                    <div class="checkbox-nice">
+                        <input type="checkbox" id="config-fixed-sidebar" />
+                        <label for="config-fixed-sidebar">
+                            Fixed Left Menu
+                        </label>
+                    </div>
+                </li>
+                <li>
+                    <div class="checkbox-nice">
+                        <input type="checkbox" id="config-fixed-footer" />
+                        <label for="config-fixed-footer">
+                            Fixed Footer
+                        </label>
+                    </div>
+                </li>
+                <li>
+                    <div class="checkbox-nice">
+                        <input type="checkbox" id="config-boxed-layout" />
+                        <label for="config-boxed-layout">
+                            Boxed Layout
+                        </label>
+                    </div>
+                </li>
+                <li>
+                    <div class="checkbox-nice">
+                        <input type="checkbox" id="config-rtl-layout" />
+                        <label for="config-rtl-layout">
+                            Right-to-Left
+                        </label>
+                    </div>
+                </li>
+            </ul>
+            <br />
+            <h4>Skin Color</h4>
+            <ul id="skin-colors" class="clearfix">
+                <li>
+                    <a class="skin-changer" data-skin="" data-toggle="tooltip" title="Default" style="background-color: #34495e;">
+                    </a>
+                </li>
+                <li>
+                    <a class="skin-changer" data-skin="theme-white" data-toggle="tooltip" title="White/Green" style="background-color: #2ecc71;">
+                    </a>
+                </li>
+                <li>
+                    <a class="skin-changer blue-gradient" data-skin="theme-blue-gradient" data-toggle="tooltip" title="Gradient">
+                    </a>
+                </li>
+                <li>
+                    <a class="skin-changer" data-skin="theme-turquoise" data-toggle="tooltip" title="Green Sea" style="background-color: #1abc9c;">
+                    </a>
+                </li>
+                <li>
+                    <a class="skin-changer" data-skin="theme-amethyst" data-toggle="tooltip" title="Amethyst" style="background-color: #9b59b6;">
+                    </a>
+                </li>
+                <li>
+                    <a class="skin-changer" data-skin="theme-blue" data-toggle="tooltip" title="Blue" style="background-color: #2980b9;">
+                    </a>
+                </li>
+                <li>
+                    <a class="skin-changer" data-skin="theme-red" data-toggle="tooltip" title="Red" style="background-color: #e74c3c;">
+                    </a>
+                </li>
+                <li>
+                    <a class="skin-changer" data-skin="theme-whbl" data-toggle="tooltip" title="White/Blue" style="background-color: #3498db;">
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <script src="/js/demo-skin-changer.js"></script>
+    <script src="/js/bootstrap.js"></script>
+    <script src="/js/jquery.nanoscroller.min.js"></script>
+    <script src="/js/demo.js"></script>
+
+    <script src="/js/bootstrap-editable.min.js"></script>
+
+    <script src="/js/select2.min.js"></script>
+
+    <script src="/js/moment.min.js"></script>
+
+    <script src="/js/jquery.slimscroll.min.js"></script>
+
+    <script src="/js/jquery.magnific-popup.min.js"></script>
+
+    <script src="/js/bootstrap-datepicker.js"></script>
+
+    <script src="/js/daterangepicker.js"></script>
+
+    <script src="/js/bootstrap-timepicker.min.js"></script>
+
+    <script src="/js/hogan.js"></script>
+
+    <script src="/js/typeahead.min.js"></script>
+
+    <script src="/js/jquery.pwstrength.js"></script>
+
+    <script src="/js/jquery.nouislider.js"></script>
+
+    <script src="/js/jquery.nestable.js"></script>
+
+    <script src="/js/jquery.hotkeys.js"></script>
+
+    <script src="/js/bootstrap-wysiwyg.js"></script>
+
+    <script src="/js/summernote.min.js"></script>
+
+    <script src="/js/jquery-ui.custom.min.js"></script>
+
+    <script src="/js/fullcalendar.min.js"></script>
+
+    <script src="/js/jquery-jvectormap-1.2.2.min.js"></script>
+    <script src="/js/jquery-jvectormap-world-merc-en.js"></script>
+    <script src="/js/gdp-data.js"></script>
+
+    <script src="/js/skycons.js"></script>
+
+    <script src="/js/modernizr.js"></script>
+
+    <script src="/js/timeline.js"></script>
+    <script src="/js/jquery.grid-a-licious.min.js"></script>
+
+    <script src="/js/jquery.dataTables.js"></script>
+    <script src="/js/dataTables.fixedHeader.js"></script>
+    <script src="/js/dataTables.tableTools.js"></script>
+    <script src="/js/jquery.dataTables.bootstrap.js"></script>
+
+    <script src="/js/footable.js"></script>
+    <script src="/js/footable.sort.js"></script>
+    <script src="/js/footable.paginate.js"></script>
+    <script src="/js/footable.filter.js"></script>
+
+    <script src="/js/hopscotch.js"></script>
+
+    <script src="/js/d3.min.js"></script>
+    <script src="/js/xcharts.js"></script>
+    <script src="/js/rainbow.min.js"></script>
+    <script src="/js/jquery.knob.js"></script>
+    <script src="/js/raphael-min.js"></script>
+    <script src="/js/morris.js"></script>
+    <script src="/js/dygraph-data.js"></script>
+    <script src="/js/dygraph.min.js"></script>
+    <script src="/js/dygraph-interaction.js"></script>
+
+    <script src="/js/wizard.js"></script>
+    <script src="/js/bootstrap-wizard.js"></script>
+
+    <script src="/js/flot/jquery.flot.min.js"></script>
+    <script src="/js/flot/jquery.flot.resize.min.js"></script>
+    <script src="/js/flot/jquery.flot.time.min.js"></script>
+    <script src="/js/flot/jquery.flot.threshold.js"></script>
+    <script src="/js/flot/jquery.flot.axislabels.js"></script>
+    <script src="/js/flot/jquery.flot.pie.min.js"></script>
+    <script src="/js/flot/jquery.flot.stack.min.js"></script>
+    <script src="/js/flot/jquery.flot.orderBars.js"></script>
+    <script src="/js/jquery.sparkline.min.js"></script>
+
+    <script src="/js/jquery.nestable.js"></script>
+
+    <script src="/js/scripts.js"></script>
+    <script src="/mask/jquery.maskedinput.js"></script>
+    <script>
+
+        $(document).ready(function () {
+
+            var table = $('#tbl').dataTable();
+
+            //nice select boxes
+            $('.ddl').select2();
+
+            $(".datebox").datepicker({
+                //format: 'dd-mm-yyyy'
+                format: 'dd/mm/yyyy'
+            });
+            $('.datebox').attr("placeholder", "dd/mm/yyyy");
+
+            //nice masking
+            $(".cnic").mask('99999-9999999-9', { placeholder: 'X' });
+            //$.samaskHtml();
+            $('.cnic').attr("placeholder", "XXXXX-XXXXXXX-X");
+
+            $(".year").mask('9999', { placeholder: 'X' });
+        });
+
+    </script>
+</body>
+</html>
